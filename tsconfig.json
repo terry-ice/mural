@@ -1,26 +1,26 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "outDir": "./build/",
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "strictNullChecks": false,
-    "noImplicitReturns": true,
-    "noUnusedParameters": false,
-    "noUnusedLocals": false,
-    "noFallthroughCasesInSwitch": true,
+    "outDir": "build/dist",
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["esnext", "dom"],
     "sourceMap": true,
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "baseUrl": ".",
+    "jsx": "react",
     "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "allowJs": true,
+    "skipLibCheck": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types",
-      "src/types"
-    ]
+    "strict": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@@/*": ["./src/.umi/*"]
+    }
   },
-  "include": [
-    "src/**/*.tsx", "src/**/*.ts", "packages/mural-model/PixiHome.ts",
-  ]
+  "exclude": ["node_modules", "build", "dist", "scripts", "webpack", "jest"]
 }
