@@ -8,12 +8,11 @@
 import React, { useEffect, useRef } from 'react';
 import PixiCanvas from '../packages/mural-core/pixi/pixiCanvas';
 
-const pixi = new PixiCanvas();
-
 const Scene = () => {
   const inputEl = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const pixi = new PixiCanvas();
     inputEl.current!.appendChild(pixi.getView());
   }, []);
 
