@@ -6,12 +6,13 @@
  */
 
 import * as PIXI from 'pixi.js';
+import vector2d from '../math/vector2d';
 
-export default class PixiArc {
+export default class Rect {
   graphics: PIXI.Graphics;
   className = 'PixiArc';
 
-  constructor() {
+  constructor(vector2dwidth: number, height: number) {
     this.graphics = new PIXI.Graphics();
     this.graphics.beginFill(0xde3249);
     this.graphics.drawRect(50, 50, 100, 100);

@@ -6,7 +6,7 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import PixiCanvas from '../packages/mural-core/pixi/pixiCanvas';
+import PixiCanvas from '../packages/mural-core/pixi/canvas';
 
 const pixi = new PixiCanvas();
 

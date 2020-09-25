@@ -2,7 +2,7 @@
  * @Author: terry
  * @Date: 2020-09-22 22:47:23
  * @Last Modified by: https://github.com/terry-ice
- * @Last Modified time: 2020-09-22 22:48:45
+ * @Last Modified time: 2020-09-23 14:09:09
  */
 
 import * as PIXI from 'pixi.js';
@@ -21,7 +21,10 @@ export default class PixiCanvas {
     this.app.stage.addChild(this.graphics);
   }
 
+
+
   getView(): HTMLCanvasElement {
     return this.app.view;
   }
+
 }

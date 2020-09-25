@@ -1,1 +1,1 @@
-export * as PixiCanvas from './pixi/pixiCanvas';
+export * as PixiCanvas from './pixi/canvas';

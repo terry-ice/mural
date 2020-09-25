@@ -1,85 +1,101 @@
 /*
  * @Author: terry
  * @Date: 2020-09-22 22:46:05
- * @Last Modified by:   https://github.com/terry-ice
- * @Last Modified time: 2020-09-22 22:46:05
+ * @Last Modified by: https://github.com/terry-ice
+ * @Last Modified time: 2020-09-23 12:04:13
  */
 
 export default class Vector2d {
   x: number;
   y: number;
-  z: number;
 
-  constructor(x: number, y: number, z: number) {
+  constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
-    this.z = z;
   }
 
   negative() {
-    return new Vector2d(-this.x, -this.y, -this.z);
+    this.x = -this.x;
+    this.y = -this.y;
+    return this;
   }
 
   add(v: Vector2d) {
     if (v instanceof Vector2d) {
-      return new Vector2d(this.x + v.x, this.y + v.y, this.z + v.z);
+      this.x += v.x;
+      this.y += v.y;
     } else {
-      return new Vector2d(this.x + v, this.y + v, this.z + v);
+      this.x += v;
+      this.y += v;
     }
+    return this;
   }
 
   subtract(v: Vector2d) {
-    if (v instanceof Vector2d) return new Vector2d(this.x - v.x, this.y - v.y, this.z - v.z);
-    else return new Vector2d(this.x - v, this.y - v, this.z - v);
+    if (v instanceof Vector2d) {
+      this.x -= v.x;
+      this.y -= v.y;
+    } else {
+      this.x -= v;
+      this.y -= v;
+    }
+    return this;
   }
 
   multiply(v: Vector2d) {
-    if (v instanceof Vector2d) return new Vector2d(this.x * v.x, this.y * v.y, this.z * v.z);
-    else return new Vector2d(this.x * v, this.y * v, this.z * v);
+    if (v instanceof Vector2d) {
+      this.x *= v.x;
+      this.y *= v.y;
+    } else {
+      this.x *= v;
+      this.y *= v;
+    }
+    return this;
   }
 
   divide(v: Vector2d) {
-    if (v instanceof Vector2d) return new Vector2d(this.x / v.x, this.y / v.y, this.z / v.z);
-    else return new Vector2d(this.x / v, this.y / v, this.z / v);
+    if (v instanceof Vector2d) {
+      if (v.x != 0) this.x /= v.x;
+      if (v.y != 0) this.y /= v.y;
+    } else {
+      if (v != 0) {
+        this.x /= v;
+        this.y /= v;
+      }
+    }
+    return this;
   }
 
   equals(v: Vector2d) {
-    return this.x == v.x && this.y == v.y && this.z == v.z;
+    return this.x == v.x && this.y == v.y;
   }
 
   dot(v: Vector2d) {
-    return this.x * v.x + this.y * v.y + this.z * v.z;
+    return this.x * v.x + this.y * v.y;
   }
 
   cross(v: Vector2d) {
-    return new Vector2d(
-      this.y * v.z - this.z * v.y,
-      this.z * v.x - this.x * v.z,
-      this.x * v.y - this.y * v.x,
-    );
+    return this.x * v.y - this.y * v.x;
   }
 
   length() {
     return Math.sqrt(this.dot(this));
   }
 
-  unit() {
+  normalize() {
     return this.divide(this);
   }
 
   min() {
-    return Math.min(Math.min(this.x, this.y), this.z);
+    return Math.min(this.x, this.y);
   }
 
   max() {
-    return Math.max(Math.max(this.x, this.y), this.z);
+    return Math.max(this.x, this.y);
   }
 
   toAngles() {
-    return {
-      theta: Math.atan2(this.z, this.x),
-      phi: Math.asin(this.y / this.length()),
-    };
+    return -Math.atan2(-this.y, this.x);
   }
 
   angleTo(a: Vector2d) {
@@ -87,123 +103,52 @@ export default class Vector2d {
   }
 
   toArray(n: number) {
-    return [this.x, this.y, this.z].slice(0, n || 3);
+    return [this.x, this.y].slice(0, n || 2);
   }
 
   clone() {
-    return new Vector2d(this.x, this.y, this.z);
+    return new Vector2d(this.x, this.y);
   }
 
-  init(x: number, y: number, z: number) {
+  set(x: number, y: number) {
     this.x = x;
     this.y = y;
-    this.z = z;
     return this;
   }
 
-  static negative(a: Vector2d, b: Vector2d) {
-    b.x = -a.x;
-    b.y = -a.y;
-    b.z = -a.z;
-    return b;
+  static negative(v: Vector2d) {
+    return new Vector2d(-v.x, -v.y);
   }
 
-  static add(a: Vector2d, b: Vector2d, c: Vector2d) {
-    if (b instanceof Vector2d) {
-      c.x = a.x + b.x;
-      c.y = a.y + b.y;
-      c.z = a.z + b.z;
-    } else {
-      c.x = a.x + b;
-      c.y = a.y + b;
-      c.z = a.z + b;
-    }
-    return c;
+  static add(a: Vector2d, b: Vector2d) {
+    if (b instanceof Vector2d) return new Vector2d(a.x + b.x, a.y + b.y);
+    else return new Vector2d(a.x + b, a.y + b);
   }
 
-  static subtract(a: Vector2d, b: Vector2d, c: Vector2d) {
-    if (b instanceof Vector2d) {
-      c.x = a.x - b.x;
-      c.y = a.y - b.y;
-      c.z = a.z - b.z;
-    } else {
-      c.x = a.x - b;
-      c.y = a.y - b;
-      c.z = a.z - b;
-    }
-    return c;
+  static subtract(a: Vector2d, b: Vector2d) {
+    if (b instanceof Vector2d) return new Vector2d(a.x - b.x, a.y - b.y);
+    else return new Vector2d(a.x - b, a.y - b);
   }
 
-  static multiply(a: Vector2d, b: Vector2d, c: Vector2d) {
-    if (b instanceof Vector2d) {
-      c.x = a.x * b.x;
-      c.y = a.y * b.y;
-      c.z = a.z * b.z;
-    } else {
-      c.x = a.x * b;
-      c.y = a.y * b;
-      c.z = a.z * b;
-    }
-    return c;
+  static multiply(a: Vector2d, b: Vector2d) {
+    if (b instanceof Vector2d) return new Vector2d(a.x * b.x, a.y * b.y);
+    else return new Vector2d(a.x * b, a.y * b);
   }
 
-  static divide(a: Vector2d, b: Vector2d, c: Vector2d) {
-    if (b instanceof Vector2d) {
-      c.x = a.x / b.x;
-      c.y = a.y / b.y;
-      c.z = a.z / b.z;
-    } else {
-      c.x = a.x / b;
-      c.y = a.y / b;
-      c.z = a.z / b;
-    }
-    return c;
+  static divide(a: Vector2d, b: Vector2d) {
+    if (b instanceof Vector2d) return new Vector2d(a.x / b.x, a.y / b.y);
+    else return new Vector2d(a.x / b, a.y / b);
   }
 
-  static cross(a: Vector2d, b: Vector2d, c: Vector2d) {
-    c.x = a.y * b.z - a.z * b.y;
-    c.y = a.z * b.x - a.x * b.z;
-    c.z = a.x * b.y - a.y * b.x;
-    return c;
+  static equals(a: Vector2d, b: Vector2d) {
+    return a.x == b.x && a.y == b.y;
   }
 
-  static unit(a: Vector2d, b: Vector2d) {
-    var length = a.length();
-    b.x = a.x / length;
-    b.y = a.y / length;
-    b.z = a.z / length;
-    return b;
+  static dot(a: Vector2d, b: Vector2d) {
+    return a.x * b.x + a.y * b.y;
   }
 
-  static fromAngles(theta: number, phi: number) {
-    return new Vector2d(
-      Math.cos(theta) * Math.cos(phi),
-      Math.sin(phi),
-      Math.sin(theta) * Math.cos(phi),
-    );
-  }
-
-  static randomDirection() {
-    return Vector2d.fromAngles(Math.random() * Math.PI * 2, Math.asin(Math.random() * 2 - 1));
-  }
-
-  static min(a: Vector2d, b: Vector2d) {
-    return new Vector2d(Math.min(a.x, b.x), Math.min(a.y, b.y), Math.min(a.z, b.z));
-  }
-
-  static max(a: Vector2d, b: Vector2d) {
-    return new Vector2d(Math.max(a.x, b.x), Math.max(a.y, b.y), Math.max(a.z, b.z));
-  }
-
-  static lerp(a: Vector2d, b: Vector2d, fraction: Vector2d) {
-    return b.subtract(a).multiply(fraction).add(a);
-  }
-
-  static fromArray(a: Vector2d) {
-    return new Vector2d(a[0], a[1], a[2]);
-  }
-
-  static angleBetween(a: Vector2d, b: Vector2d) {
-    return a.angleTo(b);
+  static cross(a: Vector2d, b: Vector2d) {
+    return a.x * b.y - a.y * b.x;
   }
 }
