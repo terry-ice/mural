@@ -12,10 +12,10 @@ export default class Rect {
   graphics: PIXI.Graphics;
   className = 'PixiArc';
 
-  constructor(vector2dwidth: number, height: number) {
+  constructor(vector: vector2d, width: number, height: number) {
     this.graphics = new PIXI.Graphics();
     this.graphics.beginFill(0xde3249);
-    this.graphics.drawRect(50, 50, 100, 100);
+    this.graphics.drawRect(vector.x, vector.y, width, height);
     this.graphics.endFill();
   }
 }
