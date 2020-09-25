@@ -24,7 +24,9 @@ $ npm run start
 
 ## Features
 
--   [x] mural -- ✨✨🎉🎉
+[![Features](https://i.ytimg.com/vi/v5_NXKELD1E/hqdefault.jpg)](https://youtu.be/v5_NXKELD1E)
+
+- [x] mural -- ✨✨🎉🎉
 
 ## License
 
